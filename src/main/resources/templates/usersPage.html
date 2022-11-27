@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Inventory App - Users</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Available heroes</h1>
+        <ul>
+            <li th:each="user : ${usersList}">
+                <a th:href="@{users/{item}(item=${user.name})}" th:text="${user.name}">user</a>
+            </li>
+        </ul>
+        <form method="post" action="/users">
+            <input type="text" id="user" name="userName" placeholder="New user name..." required>
+            <button type="submit">Add new user</button>
+            
+        </form>
+        <form method="get" action="/">
+            <button>Back</button>
+        </form>
+    </body>
+</html>

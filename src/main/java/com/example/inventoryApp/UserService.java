@@ -25,4 +25,16 @@ public class UserService {
         this.userRepository.save(h);
     }
     
+    public User findUserByName (String userName) {
+        
+//        for (Hero h : this.heroes) {
+//            if (h.getName().equals(heroName)) {
+//                return h;
+//            }
+//        }
+//        
+//        return heroes.get(0);
+        return this.userRepository.findByName(userName).get(0);
+    }
+    
 }

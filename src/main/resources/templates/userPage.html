@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inventory App - Users</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2 th:text="${user.name}">name</h2>
+        <h3 th:text="'Status: ' + ${user.status}">status</h3>
+        <span th:text="'Location: ' + ${user.location}">something</span><br>
+        <span th:text="'Email: ' + ${user.email.toLowerCase()}">something</span><br>
+        <span th:text="'Start date: ' + ${user.startDate}">something</span><br>
+        <div>
+            <h1>Available assets</h1>
+            <ul>
+                <li th:each="item : ${user.assets}">
+                    <span th:text="${item.itemName} + ${quest.supplier} + ')'">quest</span>
+                    <form method="post" action="/deleteItem">
+                        <input type="hidden" name="itemName" th:value="${item.name}">
+                        <button type="submit">Delete</button>
+                    </form> 
+                </li>
+            </ul>
+        </div>
+        <form method="get" action="/users">
+            <button>Back</button>
+        </form>
+        
+        
+    </body>
+</html>

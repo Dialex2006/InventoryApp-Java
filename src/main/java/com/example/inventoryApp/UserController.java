@@ -33,7 +33,17 @@ public class UserController {
     }
 
     
+    @GetMapping("/users/{userName}")
+    public String getUserInfo (@PathVariable String userName, Model model) {
+        User user = userService.findUserByName(userName);
+        model.addAttribute("user", user);
+        //model.addAttribute("questsList", questService.getQuests());
+        return "userPage";
+    
    
     
     
+    }
+    
+
 }

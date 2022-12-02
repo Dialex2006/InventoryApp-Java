@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Available heroes</h1>
+        <h1>Available users</h1>
         <ul>
             <li th:each="user : ${usersList}">
                 <a th:href="@{users/{item}(item=${user.name})}" th:text="${user.name}">user</a>

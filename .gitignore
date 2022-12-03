@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Database ###
+*.db
+
+### Docker ####
+**/src/main/docker/*.jar

@@ -8,9 +8,10 @@
     </head>
     <body>
         <h1>Specific asset unit</h1>
-        <h3 th:text="'Name: ' + ${assetItem.itemName}">Name</h3>
+        <h3 th:text="'Unit: ' + ${assetItem.itemName}">Name</h3>
         <span th:text="'Serial number: ' + ${assetItem.serialNumber}">Serial Number</span><br>
         <span th:text="'Supplier: ' + ${assetItem.supplier}">Supplier</span><br>
+        <span th:text="'Currently owned by: ' ">Owner</span><br><br><br>
         
         
         <a th:href="@{/assets/{item}(item=${assetItem.itemName})}">

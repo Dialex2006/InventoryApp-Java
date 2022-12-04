@@ -9,8 +9,8 @@
     <body>
         <h1>Available asset categories</h1>
         <ul>
-            <li th:each="asset : ${assetsList}">
-                <a th:href="@{assets/{item}(item=${asset})}" th:text="${asset} + ' (' + ${amounts[iterator]} + ')'">asset</a>
+             <li th:each="pair : ${map}">
+                <a th:href="@{assets/{item}(item=${pair.getKey()})}" th:text="${pair.getKey()} + ' (' + ${pair.getValue()} + ')'">asset</a>
             </li>
         </ul>
        <form method="post" action="/assets">

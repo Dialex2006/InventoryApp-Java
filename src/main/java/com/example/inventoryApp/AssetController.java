@@ -3,7 +3,9 @@ package com.example.inventoryApp;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,21 +31,18 @@ public class AssetController {
     public String getAssets(Model model) {
         List<List> listOfMixedTypes = new ArrayList<List>();
         List<String> assetsList = assetService.getAssetsList();
-        //System.out.println("assetsList: " + assetsList.get(0).toString());
-        model.addAttribute("assetsList", assetsList);
         ArrayList<Integer> amounts = new ArrayList<Integer>();
         
         //checking how many of each category we have now
+        Map<String, Integer> map =  new HashMap<>();
         for (String assetName : assetsList) {
+            map.put(assetName, assetItemService.getAllByName(assetName).size());
             ArrayList<AssetItem> assetItems = assetItemService.getAllByName(assetName);
             amounts.add(assetItems.size());
         }
         
-          
-        
-        model.addAttribute("amounts", amounts);
-        int i = 0;
-        model.addAttribute("iterator", i);
+        //model.addAttribute("assetsList", assetsList);
+        model.addAttribute("map", map);
         return "assetsPage";  // here comes the name of HTML page in templates
         
     }

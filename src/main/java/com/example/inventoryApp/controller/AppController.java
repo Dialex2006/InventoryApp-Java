@@ -1,4 +1,4 @@
-package com.example.inventoryApp;
+package com.example.inventoryApp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

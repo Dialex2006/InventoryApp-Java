@@ -1,7 +1,8 @@
-package com.example.inventoryApp;
+package com.example.inventoryApp.repository;
 
 import java.util.ArrayList;
 
+import com.example.inventoryApp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

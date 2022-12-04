@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Inventory App - Assets</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Available assets</h1>
+        <ul>
+            <li th:each="asset : ${assetsList}">
+                <a th:href="@{assets/{item}(item=${asset})}" th:text="${asset}">asset</a>
+            </li>
+        </ul>
+       <form method="post" action="/assets">
+            <input type="text" id="assetName" name="assetName" placeholder="New asset name..." required>
+            <input type="text" id="serialNumber" name="serialNumber" placeholder="Serial number..." required>
+            <input type="date" id="date" name="date" placeholder="Date...">
+            <input type="text" id="supplier" name="supplier" placeholder="Suplier name..." required>
+            <button type="submit">Add new asset item</button>
+            
+        </form>
+        <form method="get" action="/">
+            <button>Back</button>
+        </form>
+    </body>
+</html>

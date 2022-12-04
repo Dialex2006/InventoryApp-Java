@@ -15,6 +15,9 @@ public class UserController {
      
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private AssetItemService assetItemService;
 
     
     @GetMapping("/users")
@@ -37,6 +40,15 @@ public class UserController {
     public String getUserInfo (@PathVariable String userName, Model model) {
         User user = userService.findUserByName(userName);
         model.addAttribute("user", user);
+        ArrayList<AssetItem> items = new ArrayList<AssetItem>();
+        for (int id : user.getAssetsList()) {
+            System.out.println("ID: " + id);
+            System.out.println("Items: " + assetItemService.getAllItems());
+            System.out.println("Item: " + assetItemService.findItemById(id));
+            items.add(assetItemService.findItemById(id));
+        }
+        model.addAttribute("items", items);
+        System.out.println(model);
         //model.addAttribute("questsList", questService.getQuests());
         return "userPage";
     

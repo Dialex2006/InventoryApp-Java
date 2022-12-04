@@ -12,12 +12,12 @@
         <span th:text="'Email: ' + ${user.email.toLowerCase()}">something</span><br>
         <span th:text="'Start date: ' + ${user.startDate}">something</span><br>
         <div>
-            <h1>Available assets</h1>
+            <h1>Users's assets</h1>
             <ul>
-                <li th:each="item : ${user.assets}">
-                    <span th:text="${item.itemName} + ${quest.supplier} + ')'">quest</span>
+                <li th:each="item : ${items}">
+                    <span th:text="${item} + '(' + ${item.itemName} + ')'">assets</span>
                     <form method="post" action="/deleteItem">
-                        <input type="hidden" name="itemName" th:value="${item.name}">
+                        <input type="hidden" name="itemName" th:value="${item.itemName}">
                         <button type="submit">Delete</button>
                     </form> 
                 </li>

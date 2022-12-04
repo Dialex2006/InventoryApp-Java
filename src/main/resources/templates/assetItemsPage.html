@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Inventory App - Assets</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Asset units in use</h1>
+        <ul>
+            <li th:each="assetItem : ${assetItems}">
+                <a th:href="@{/assets/{assetName}/{item}(item=${assetItem.serialNumber}, assetName=${assetItem.itemName})}" th:text="'Name: ' + ${assetItem.itemName}">asset</a>
+                <h3 th:text="'Name: ' + ${assetItem.itemName}">Name</h3>
+                <span th:text="'Serial number: ' + ${assetItem.serialNumber}">Serial Number</span><br>
+                <span th:text="'Supplier: ' + ${assetItem.supplier}">Supplier</span><br>
+       
+            </li>
+        </ul>
+        
+        <form method="get" action="/assets">
+            <button>Back</button>
+        </form>
+    </body>
+</html>

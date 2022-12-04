@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Available assets</h1>
+        <h1>Available asset categories</h1>
         <ul>
             <li th:each="asset : ${assetsList}">
-                <a th:href="@{assets/{item}(item=${asset})}" th:text="${asset}">asset</a>
+                <a th:href="@{assets/{item}(item=${asset})}" th:text="${asset} + ' (' + ${amounts[iterator]} + ')'">asset</a>
             </li>
         </ul>
        <form method="post" action="/assets">

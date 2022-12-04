@@ -14,14 +14,15 @@ public class AssetItemService {
     private AssetItemRepository assetItemRepository;
     
     public AssetItem findItemById (int unitId) {
-
+        
 //        for (Quest q : this.quests) {
 //            if (q.getName().equals(name)) {
 //                return q;
 //            }
 //        }
 //        return quests.get(0);
-        return this.assetItemRepository.findByUnitId(unitId);
+        System.out.println("Checking ID: " + unitId);
+        return this.assetItemRepository.findById(unitId);
     }
     
     

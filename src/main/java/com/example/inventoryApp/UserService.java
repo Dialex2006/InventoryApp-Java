@@ -21,6 +21,7 @@ public class UserService {
     
     public ArrayList<User> getUsers() {
         //return this.users;
+        
         return this.userRepository.findAll();
             
     }

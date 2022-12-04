@@ -27,10 +27,23 @@ public class AssetController {
     
     @GetMapping("/assets")
     public String getAssets(Model model) {
-        //List<Asset> assetsList = assetService.getAssetsList();
+        List<List> listOfMixedTypes = new ArrayList<List>();
         List<String> assetsList = assetService.getAssetsList();
         //System.out.println("assetsList: " + assetsList.get(0).toString());
         model.addAttribute("assetsList", assetsList);
+        ArrayList<Integer> amounts = new ArrayList<Integer>();
+        
+        //checking how many of each category we have now
+        for (String assetName : assetsList) {
+            ArrayList<AssetItem> assetItems = assetItemService.getAllByName(assetName);
+            amounts.add(assetItems.size());
+        }
+        
+          
+        
+        model.addAttribute("amounts", amounts);
+        int i = 0;
+        model.addAttribute("iterator", i);
         return "assetsPage";  // here comes the name of HTML page in templates
         
     }
@@ -65,11 +78,16 @@ public class AssetController {
     
     
     @PostMapping("/assign")
-    public String AssignAssets(@RequestParam String userName, @RequestParam String serialNumber) {
-        AssetItem assetItem = assetItemService.findItemBySerialNumber(serialNumber);
+    public String AssignAssets(@RequestParam String userName, @RequestParam int id, @RequestParam String serialNumber) {
+        System.out.println("Assets's ID: " + id);
+        System.out.println("Serial: " + serialNumber);
+        //System.out.println("Assets's ID: " + id);
+        AssetItem assetItem = assetItemService.findItemById(id);
+        //AssetItem assetItem = assetItemService.findItemBySerialNumber(serialNumber);
         User user = userService.findUserByName(userName);
         assetItem.setOwnerId(user.getUserId());
-        //assetItemService.setAssetItem(new AssetItem(assetName, serialNumber, supplier));
+        
+        assetItemService.setAssetItem(assetItem);
         return "redirect:/assets";
         
     }

@@ -23,7 +23,8 @@
                 <span th:text="${user.name}">user</span>
                 <form method="post" action="/assign">
                     <input type="hidden" id="user" name="userName" th:value="${user.Name}">
-                    <input type="hidden" id="asset" name="serialName" th:value="${assetItem.serialNumber}">
+                    <input type="hidden" id="assetId" name="id" th:value="${assetItem.id}">
+                    <input type="hidden" id="asset" name="serialNumber" th:value="${assetItem.serialNumber}">
                     <button type="submit">Assign to this user</button>
                 </form>
             </li>

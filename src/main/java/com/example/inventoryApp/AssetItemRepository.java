@@ -9,12 +9,13 @@ interface NamesOnly {
   String getName();
 }
 
-public interface AssetItemRepository extends JpaRepository<AssetItem, Long> {
+public interface AssetItemRepository extends JpaRepository<AssetItem, Integer> {
     @Override
     ArrayList<AssetItem> findAll();
     ArrayList<AssetItem> findByItemName(String name);
     //ArrayList<AssetItem> findDistinctByItemNameNotIn();
-    AssetItem findByUnitId(int id);
+    AssetItem findByUnitId(int unitId);
+    AssetItem findById(int id);
     AssetItem findBySerialNumber(String serialNumber);
     Long deleteByItemName(String name);
     

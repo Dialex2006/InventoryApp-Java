@@ -49,6 +49,13 @@ public class User extends AbstractPersistable<Long> {
         
     }
     
+    
+     public int getId (String name) {
+        return this.userId;
+        
+    }
+    
+    
     public int getUserId (String name) {
         return this.userId;
         

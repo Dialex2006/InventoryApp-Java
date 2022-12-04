@@ -10,11 +10,10 @@
         <h1>Asset units in use</h1>
         <ul>
             <li th:each="assetItem : ${assetItems}">
-                <a th:href="@{/assets/{assetName}/{item}(item=${assetItem.serialNumber}, assetName=${assetItem.itemName})}" th:text="'Name: ' + ${assetItem.itemName}">asset</a>
-                <h3 th:text="'Name: ' + ${assetItem.itemName}">Name</h3>
+                <h3><a th:href="@{/assets/{assetName}/{item}(item=${assetItem.serialNumber}, assetName=${assetItem.itemName})}" th:text="'Name: ' + ${assetItem.itemName}">asset</a></h3>
                 <span th:text="'Serial number: ' + ${assetItem.serialNumber}">Serial Number</span><br>
                 <span th:text="'Supplier: ' + ${assetItem.supplier}">Supplier</span><br>
-       
+                <br>
             </li>
         </ul>
         

@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Data
 
 
-public class AssetItem extends AbstractPersistable<Long> {
+public class AssetItem extends AbstractPersistable<Integer> {
     private static int idCounter=0;
     private int unitId;
     private String itemName;
@@ -56,8 +56,8 @@ public class AssetItem extends AbstractPersistable<Long> {
     }
     
     
-    public void setOwnerId (int id) {
-        this.ownerId = id;
+    public void setOwnerId (int ownerId) {
+        this.ownerId = ownerId;
     }
     
 }

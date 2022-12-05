@@ -1,9 +1,7 @@
-
-package com.example.inventoryApp;
+package com.example.inventoryApp.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +12,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @AllArgsConstructor // constructor taking all args
 @NoArgsConstructor // constructor without args
 @Data //for getters and setters
-
 public class User extends AbstractPersistable<Long> {
     private static int idCounter=0;
     private int userId;
@@ -24,7 +21,6 @@ public class User extends AbstractPersistable<Long> {
     private String email;
     private Date startDate;
     private ArrayList<Integer> assetsList = new ArrayList<Integer>();
-
     
     public User (String name) {
         idCounter++;
@@ -34,19 +30,13 @@ public class User extends AbstractPersistable<Long> {
         this.location = "Tampere";
         this.email = name+"@company.com";
         this.startDate = new Date();
-        
     }
     
     public void addAssetItem (int unitId) {
         this.assetsList.add(unitId); 
     }
     
-    
     public int getUserId (String name) {
         return this.userId;     
     }
-    
-    
-    
-    
 }

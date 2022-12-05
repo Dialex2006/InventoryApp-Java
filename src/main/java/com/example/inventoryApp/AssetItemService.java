@@ -14,13 +14,6 @@ public class AssetItemService {
     private AssetItemRepository assetItemRepository;
     
     public AssetItem findItemById (int unitId) {
-        
-//        for (Quest q : this.quests) {
-//            if (q.getName().equals(name)) {
-//                return q;
-//            }
-//        }
-//        return quests.get(0);
         System.out.println("Checking ID: " + unitId);
         return this.assetItemRepository.findById(unitId);
     }
@@ -28,11 +21,9 @@ public class AssetItemService {
     
     
     public AssetItem findItemBySerialNumber (String serialNumber) {
-
         return this.assetItemRepository.findBySerialNumber(serialNumber);
     }
 
-    
     
     public void addAssetItem (AssetItem item) {
         this.assetItemRepository.save(item);
@@ -45,13 +36,11 @@ public class AssetItemService {
     
     
     public List<AssetItem> getAllItems() {
-        //return this.heroes;
         return assetItemRepository.findAll();
         
     }
     
     public ArrayList<AssetItem> getAllByName(String name) {
-        //return this.heroes;
         return assetItemRepository.findByItemName(name);
         
         

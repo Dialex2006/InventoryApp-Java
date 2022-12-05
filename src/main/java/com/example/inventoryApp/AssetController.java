@@ -78,15 +78,12 @@ public class AssetController {
     
     @PostMapping("/assign")
     public String AssignAssets(@RequestParam String userName, @RequestParam int id, @RequestParam String serialNumber) {
-        System.out.println("Assets's ID: " + id);
-        System.out.println("Serial: " + serialNumber);
-        //System.out.println("Assets's ID: " + id);
         AssetItem assetItem = assetItemService.findItemById(id);
-        //AssetItem assetItem = assetItemService.findItemBySerialNumber(serialNumber);
         User user = userService.findUserByName(userName);
         assetItem.setOwnerId(user.getUserId());
         
         assetItemService.setAssetItem(assetItem);
+        userService.addAssetItemToUser(userName, id);
         return "redirect:/assets";
         
     }

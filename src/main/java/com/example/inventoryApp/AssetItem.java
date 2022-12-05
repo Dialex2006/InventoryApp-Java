@@ -27,7 +27,7 @@ public class AssetItem extends AbstractPersistable<Integer> {
 
     
     public AssetItem () {
-        //idCounter++;
+        idCounter++;
         this.unitId = idCounter;
         this.itemName = " ";
         this.serialNumber = " ";

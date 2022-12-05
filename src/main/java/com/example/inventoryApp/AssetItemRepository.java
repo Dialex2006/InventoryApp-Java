@@ -13,7 +13,6 @@ public interface AssetItemRepository extends JpaRepository<AssetItem, Integer> {
     @Override
     ArrayList<AssetItem> findAll();
     ArrayList<AssetItem> findByItemName(String name);
-    //ArrayList<AssetItem> findDistinctByItemNameNotIn();
     AssetItem findByUnitId(int unitId);
     AssetItem findById(int id);
     AssetItem findBySerialNumber(String serialNumber);

@@ -23,7 +23,6 @@ public class User extends AbstractPersistable<Long> {
     private String location;
     private String email;
     private Date startDate;
-    //private ArrayList<AssetItem> assets = new ArrayList<AssetItem>();
     private ArrayList<Integer> assetsList = new ArrayList<Integer>();
 
     
@@ -35,30 +34,16 @@ public class User extends AbstractPersistable<Long> {
         this.location = "Tampere";
         this.email = name+"@company.com";
         this.startDate = new Date();
-        //AssetItem newItem = new AssetItem("Name1", "Serial1", "Supplier1");
-        //System.out.println(newItem.getUnitId());
-        //AssetItem newItem2 = new AssetItem("Name2", "Serial2", "Supplier2");
-        //System.out.println(newItem2.getUnitId());
-        //this.assets.add(newItem);
-        //this.assetsList.add(newItem.getUnitId());
         
     }
     
     public void addAssetItem (int unitId) {
-        this.assetsList.add(unitId);
-        
-    }
-    
-    
-     public int getId (String name) {
-        return this.userId;
-        
+        this.assetsList.add(unitId); 
     }
     
     
     public int getUserId (String name) {
-        return this.userId;
-        
+        return this.userId;     
     }
     
     

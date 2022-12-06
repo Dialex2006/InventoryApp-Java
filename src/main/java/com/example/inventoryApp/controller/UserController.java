@@ -2,20 +2,18 @@ package com.example.inventoryApp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.example.inventoryApp.model.AssetItem;
 import com.example.inventoryApp.service.AssetItemService;
 import com.example.inventoryApp.model.User;
 import com.example.inventoryApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+
+@RestController
 public class UserController {
 
     @Autowired
@@ -25,33 +23,50 @@ public class UserController {
     private AssetItemService assetItemService;
 
 
-    @GetMapping("/users")
-    public String getUsers(Model model) {
-        List<User> usersList = userService.getUsers();
-        model.addAttribute("usersList", usersList);
-        return "usersPage";  // here comes the name of HTML page in templates
+    @GetMapping(value = "/users")
+    public Map<String, Object> getUsers(Model model) {
+        String status = "ok";
+        String error = "";
+        List<User> usersList = new ArrayList<>();
+        try {
+            usersList = userService.getUsers();
+            model.addAttribute("usersList", usersList);
+        } catch (Exception e) {
+            status = "error";
+            error = e.getCause().getMessage();
+        }
+        return Map.of("status", status, "error", error, "data", usersList);
     }
 
     @PostMapping("/users")
-    public String addUsers(@RequestParam String userName) {
-        userService.addUser(userName);
-        return "redirect:/users";
+    public Map<String, Object> addUsers(@RequestParam String userName) {
+        String status = "ok";
+        String error = "";
+        try {
+            userService.addUser(userName);
+        } catch (Exception e) {
+            status = "error";
+            error = e.getCause().getMessage();
+        }
+        return Map.of("status", status, "error", error);
     }
 
     @GetMapping("/users/{userName}")
-    public String getUserInfo(@PathVariable String userName, Model model) {
-        User user = userService.findUserByName(userName);
-        model.addAttribute("user", user);
-        ArrayList<AssetItem> items = new ArrayList<AssetItem>();
-        for (int id : user.getAssetsList()) {
-            //System.out.println("ID: " + id);
-            //System.out.println("Items: " + assetItemService.getAllItems());
-            //System.out.println("Item: " + assetItemService.findItemById(id));
-            items.add(assetItemService.findItemById(id));
+    public Map<String, Object> getUserInfo(@PathVariable String userName, Model model) {
+        String status = "ok";
+        String error = "";
+        ArrayList<AssetItem> items = new ArrayList<>();
+        try {
+            User user = userService.findUserByName(userName);
+            model.addAttribute("user", user);
+            for (int id : user.getAssetsList()) {
+                items.add(assetItemService.findItemById(id));
+            }
+            model.addAttribute("items", items);
+        } catch (Exception e) {
+            status = "error";
+            error = e.getCause().getMessage();
         }
-        model.addAttribute("items", items);
-        System.out.println(model);
-
-        return "userPage";
+        return Map.of("status", status, "error", error, "data", items);
     }
 }

@@ -35,7 +35,7 @@ public class UserController {
             status = "error";
             error = e.getCause().getMessage();
         }
-        return Map.of("status", status, "error", error, "data", usersList);
+        return Map.of("status", status, "error", error, "data", Map.of("users", usersList));
     }
 
     @PostMapping("/users")
@@ -67,6 +67,6 @@ public class UserController {
             status = "error";
             error = e.getCause().getMessage();
         }
-        return Map.of("status", status, "error", error, "data", items);
+        return Map.of("status", status, "error", error, "data", Map.of("userItems", items));
     }
 }

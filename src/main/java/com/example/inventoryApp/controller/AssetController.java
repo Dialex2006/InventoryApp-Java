@@ -45,7 +45,7 @@ public class AssetController {
             status = "error";
             error = e.getCause().getMessage();
         }
-        return Map.of("status", status, "error", error, "data", assetsList);
+        return Map.of("status", status, "error", error, "data", Map.of("assets", assetsList));
     }
 
     @PostMapping("/assets")
@@ -73,24 +73,24 @@ public class AssetController {
             status = "error";
             error = e.getCause().getMessage();
         }
-        return Map.of("status", status, "error", error, "data", assetItems);
+        return Map.of("status", status, "error", error, "data", Map.of("assetItems", assetItems));
     }
 
-    @GetMapping("/assets/{asset}/{serialNumber}")
-    public Map<String, Object> getUnitInfo(@PathVariable String asset, @PathVariable String serialNumber, Model model) {
+    @GetMapping("/assets/{serialNumber}")
+    public Map<String, Object> getUnitInfo(@PathVariable String serialNumber, Model model) {
         String status = "ok";
         String error = "";
-        List<User> usersList = new ArrayList<>();
+        AssetItem assetItem = new AssetItem();
         try {
-            AssetItem assetItem = assetItemService.findItemBySerialNumber(serialNumber);
+            assetItem = assetItemService.findItemBySerialNumber(serialNumber);
             model.addAttribute("assetItem", assetItem);
-            usersList = userService.getUsers();
+            List<User> usersList = userService.getUsers();
             model.addAttribute("usersList", usersList);
         } catch (Exception e) {
             status = "error";
             error = e.getCause().getMessage();
         }
-        return Map.of("status", status, "error", error, "data", usersList);
+        return Map.of("status", status, "error", error, "data", Map.of("assetItem", assetItem));
     }
 
     @PostMapping("/assign")

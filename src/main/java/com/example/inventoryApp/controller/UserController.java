@@ -38,7 +38,7 @@ public class UserController {
         return Map.of("status", status, "error", error, "data", Map.of("users", usersList));
     }
 
-    @PostMapping("/users")
+    @PostMapping("/users/add")
     public Map<String, Object> addUsers(@RequestParam String userName) {
         String status = "ok";
         String error = "";
@@ -55,10 +55,11 @@ public class UserController {
     public Map<String, Object> getUserInfo(@PathVariable String userName, Model model) {
         String status = "ok";
         String error = "";
-        ArrayList<AssetItem> items = new ArrayList<>();
+        User user = new User();
         try {
-            User user = userService.findUserByName(userName);
+            user = userService.findUserByName(userName);
             model.addAttribute("user", user);
+            ArrayList<AssetItem> items = new ArrayList<>();
             for (int id : user.getAssetsList()) {
                 items.add(assetItemService.findItemById(id));
             }
@@ -67,6 +68,6 @@ public class UserController {
             status = "error";
             error = e.getCause().getMessage();
         }
-        return Map.of("status", status, "error", error, "data", Map.of("userItems", items));
+        return Map.of("status", status, "error", error, "data", Map.of("user", user));
     }
 }

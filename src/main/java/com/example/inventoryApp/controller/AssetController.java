@@ -1,6 +1,8 @@
 package com.example.inventoryApp.controller;
 
+import com.example.inventoryApp.model.AddAsset;
 import com.example.inventoryApp.model.AssetItem;
+import com.example.inventoryApp.model.AssignAsset;
 import com.example.inventoryApp.model.User;
 import com.example.inventoryApp.service.AssetItemService;
 import com.example.inventoryApp.service.AssetService;
@@ -57,11 +59,11 @@ public class AssetController {
     }
 
     @PostMapping("/assets/add")
-    public Map<String, Object> addAssets(@RequestParam String assetName, String serialNumber, String supplier) {
+    public Map<String, Object> addAssets(@RequestBody AddAsset asset) {
         String status = "ok";
         String error = "";
         try {
-            assetItemService.addAssetItem(new AssetItem(assetName, serialNumber, supplier));
+            assetItemService.addAssetItem(new AssetItem(asset.getAssetName(), asset.getSerialNumber(), asset.getSupplier()));
         } catch (Exception e) {
             status = "error";
             error = e.getCause().getMessage();
@@ -102,15 +104,17 @@ public class AssetController {
     }
 
     @PostMapping("/assets/assign")
-    public Map<String, Object> AssignAssets(@RequestParam String userName, @RequestParam int id) {
+    public Map<String, Object> AssignAssets(@RequestBody AssignAsset assignData) {
         String status = "ok";
         String error = "";
         try {
+            Integer id = assignData.getId();
+            String username = assignData.getUsername();
             AssetItem assetItem = assetItemService.findItemById(id);
-            User user = userService.findUserByName(userName);
+            User user = userService.findUserByName(username);
             assetItem.setOwnerId(user.getUserId());
             assetItemService.setAssetItem(assetItem);
-            userService.addAssetItemToUser(userName, id);
+            userService.addAssetItemToUser(username, id);
         } catch (Exception e) {
             status = "error";
             error = e.getCause().getMessage();

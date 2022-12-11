@@ -46,11 +46,11 @@ public class UserController {
     }
 
     @PostMapping("/users/add")
-    public Map<String, Object> addUsers(@RequestParam String userName) {
+    public Map<String, Object> addUsers(@RequestBody String username) {
         String status = "ok";
         String error = "";
         try {
-            userService.addUser(userName);
+            userService.addUser(username);
         } catch (Exception e) {
             status = "error";
             error = e.getCause().getMessage();

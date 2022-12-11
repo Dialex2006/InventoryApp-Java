@@ -26,6 +26,8 @@ public class UserService {
     }
 
     public void addUser(String userName) {
+        String[] userName_split = userName.split(":", 2);
+        userName = userName_split[1].substring(1, userName_split[1].length()-2);
         User h = new User(userName);
         this.userRepository.save(h);
     }

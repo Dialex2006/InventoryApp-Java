@@ -1,12 +1,12 @@
 package com.example.inventoryApp.controller;
 
-import com.example.inventoryApp.model.AddAsset;
 import com.example.inventoryApp.model.AssetItem;
-import com.example.inventoryApp.model.AssignAsset;
 import com.example.inventoryApp.model.User;
 import com.example.inventoryApp.service.AssetItemService;
 import com.example.inventoryApp.service.AssetService;
 import com.example.inventoryApp.service.UserService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +34,8 @@ public class AssetController {
     @Autowired
     private AssetItemService assetItemService;
 
+    private final ObjectMapper mapper = new ObjectMapper();
+
     @GetMapping("/assets")
     public Map<String, Object> getAssets(Model model) {
         String status = "ok";
@@ -59,11 +61,19 @@ public class AssetController {
     }
 
     @PostMapping("/assets/add")
-    public Map<String, Object> addAssets(@RequestBody AddAsset asset) {
+    public Map<String, Object> addAssets(@RequestBody String assetData) {
         String status = "ok";
         String error = "";
+
+        System.out.println("asset data: " + assetData);
+
         try {
-            assetItemService.addAssetItem(new AssetItem(asset.getAssetName(), asset.getSerialNumber(), asset.getSupplier()));
+            // read JSON data from file using fileObj and map it using ObjectMapper and TypeReference classes
+            Map<String, Object> assetMap = mapper.readValue(assetData, new TypeReference<>() {
+            });
+            Map<String, String> asset = (Map<String, String>) assetMap.get("asset");
+            System.out.println("asset map: " + asset);
+            assetItemService.addAssetItem(new AssetItem(asset.get("assetName"), asset.get("serialNumber"), asset.get("supplier")));
         } catch (Exception e) {
             status = "error";
             error = e.getCause().getMessage();
@@ -104,12 +114,15 @@ public class AssetController {
     }
 
     @PostMapping("/assets/assign")
-    public Map<String, Object> AssignAssets(@RequestBody AssignAsset assignData) {
+    public Map<String, Object> AssignAssets(@RequestBody String assignData) {
         String status = "ok";
         String error = "";
         try {
-            Integer id = assignData.getId();
-            String username = assignData.getUsername();
+            // read JSON data from file using fileObj and map it using ObjectMapper and TypeReference classes
+            Map<String, String> assignMap = mapper.readValue(assignData, new TypeReference<>() {
+            });
+            int id = Integer.parseInt(assignMap.get("id"));
+            String username = assignMap.get("username");
             AssetItem assetItem = assetItemService.findItemById(id);
             User user = userService.findUserByName(username);
             assetItem.setOwnerId(user.getUserId());

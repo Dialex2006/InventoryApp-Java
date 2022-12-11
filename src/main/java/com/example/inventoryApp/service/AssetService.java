@@ -15,7 +15,7 @@ public class AssetService {
     @Autowired
     private AssetItemRepository assetItemRepository;
 
-    public List<String> getAssetsList() {
+    public List<String> getAssetsNamesList() {
         ArrayList<AssetItem> assetItems = new ArrayList<AssetItem>();
         assetItems = assetItemRepository.findAll();
         List<String> names = new ArrayList<>();
@@ -29,4 +29,14 @@ public class AssetService {
 
         return names; // returning just an array of unique asset names
     }
+    
+    
+    public ArrayList<AssetItem> getAssetsList() {
+        ArrayList<AssetItem> assetItems = new ArrayList<AssetItem>();
+        assetItems = assetItemRepository.findAll();
+
+        return assetItems; // returning just an array of unique asset names
+    }
+    
+    
 }

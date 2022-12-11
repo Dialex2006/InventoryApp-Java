@@ -36,7 +36,8 @@ public class AssetController {
     public Map<String, Object> getAssets(Model model) {
         String status = "ok";
         String error = "";
-        List<String> assetsList = assetService.getAssetsList();
+        List<String> assetsList = assetService.getAssetsNamesList();
+        System.out.print("List of assets: " + assetsList);
         ArrayList<AssetItem> assetItems = new ArrayList<>();
         try {
             // check how many of each category we have now
@@ -44,7 +45,9 @@ public class AssetController {
             for (String assetName : assetsList) {
                 map.put(assetName, assetItemService.getAllByName(assetName).size());
                 assetItems = assetItemService.getAllByName(assetName);
+                //assetItems.add(assetItemService.getAllByName(assetName));
             }
+            assetItems = assetService.getAssetsList();
             model.addAttribute("map", map);
         } catch (Exception e) {
             status = "error";

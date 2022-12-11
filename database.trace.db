@@ -279,3 +279,23 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/dmitr
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 64 more
+2022-12-11 15:11:03 jdbc[63]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE *[*] FROM USER
+WHERE USER.NAME=""Max"""; expected "identifier"; SQL statement:
+DELETE * FROM USER
+WHERE USER.NAME="Max" [42001-200]
+2022-12-11 15:11:14 jdbc[63]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE *[*] FROM USER
+WHERE NAME=""Max"""; expected "identifier"; SQL statement:
+DELETE * FROM USER
+WHERE NAME="Max" [42001-200]
+2022-12-11 15:11:53 jdbc[63]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE *[*] FROM USER
+WHERE NAME='Max'"; expected "identifier"; SQL statement:
+DELETE * FROM USER
+WHERE NAME='Max' [42001-200]
+2022-12-11 15:11:57 jdbc[63]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE *[*] FROM USER
+WHERE NAME=MAX"; expected "identifier"; SQL statement:
+DELETE * FROM USER
+WHERE NAME=Max [42001-200]

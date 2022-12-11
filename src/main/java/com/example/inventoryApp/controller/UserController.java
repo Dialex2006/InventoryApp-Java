@@ -33,6 +33,7 @@ public class UserController {
     @Autowired
     private AssetItemService assetItemService;
 
+    @Autowired
     private final ObjectMapper mapper = new ObjectMapper();
 
     @GetMapping(value = "/users")
@@ -54,7 +55,6 @@ public class UserController {
     public Map<String, Object> addUsers(@RequestBody String userData) {
         String status = "ok";
         String error = "";
-
         try {
             // read JSON data from file using fileObj and map it using ObjectMapper and TypeReference classes
             Map<String, String> userMap = mapper.readValue(

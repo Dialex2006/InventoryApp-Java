@@ -34,6 +34,7 @@ public class AssetController {
     @Autowired
     private AssetItemService assetItemService;
 
+    @Autowired
     private final ObjectMapper mapper = new ObjectMapper();
 
     @GetMapping("/assets")

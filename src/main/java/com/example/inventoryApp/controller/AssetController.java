@@ -115,7 +115,7 @@ public class AssetController {
     }
 
     @PostMapping("/assets/assign")
-    public Map<String, Object> AssignAssets(@RequestBody String assignData) {
+    public Map<String, Object> assignAsset(@RequestBody String assignData) {
         String status = "ok";
         String error = "";
         try {
@@ -129,6 +129,34 @@ public class AssetController {
             assetItem.setOwnerId(user.getUserId());
             assetItemService.setAssetItem(assetItem);
             userService.addAssetItemToUser(username, id);
+        } catch (Exception e) {
+            status = "error";
+            error = e.getCause().getMessage();
+        }
+        return Map.of("status", status, "error", error);
+    }
+
+    @DeleteMapping("/assets/delete/id/{id}")
+    public Map<String, Object> deleteAssetById(@PathVariable int id) {
+        String status = "ok";
+        String error = "";
+        try {
+            assetItemService.deleteById(id);
+        } catch (Exception e) {
+            status = "error";
+            error = e.getCause().getMessage();
+        }
+        return Map.of("status", status, "error", error);
+    }
+
+    @DeleteMapping("/assets/delete/number/{serialNumber}")
+    public Map<String, Object> deleteAssetBySerialNumber(@PathVariable String serialNumber) {
+        String status = "ok";
+        String error = "";
+        try {
+            AssetItem foundItem = assetItemService.findItemBySerialNumber(serialNumber);
+            System.out.println("my man: " + foundItem + ", and unit id:" + foundItem.getUnitId());
+            assetItemService.deleteById(foundItem.getId());
         } catch (Exception e) {
             status = "error";
             error = e.getCause().getMessage();

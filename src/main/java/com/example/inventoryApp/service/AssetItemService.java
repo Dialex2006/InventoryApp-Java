@@ -38,4 +38,8 @@ public class AssetItemService {
     public ArrayList<AssetItem> getAllByName(String name) {
         return assetItemRepository.findByItemName(name);
     }
+
+    public void deleteById(int id) {
+        this.assetItemRepository.deleteById(id);
+    }
 }

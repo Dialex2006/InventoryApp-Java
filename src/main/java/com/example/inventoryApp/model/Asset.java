@@ -6,7 +6,7 @@ public class Asset {
 
     private String assetName;
     private String categoryName;
-    private ArrayList<AssetItem> items = new ArrayList<AssetItem>();
+    private ArrayList<AssetItem> items = new ArrayList<>();
     private int amount;
 
     public Asset(String name) {

@@ -21,5 +21,5 @@ public interface AssetItemRepository extends JpaRepository<AssetItem, Integer> {
 
     AssetItem findBySerialNumber(String serialNumber);
 
-    Long deleteByItemName(String name);
+    void deleteById(int id);
 }

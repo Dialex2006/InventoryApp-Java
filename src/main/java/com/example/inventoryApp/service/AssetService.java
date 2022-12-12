@@ -16,8 +16,7 @@ public class AssetService {
     private AssetItemRepository assetItemRepository;
 
     public List<String> getAssetsNamesList() {
-        ArrayList<AssetItem> assetItems = new ArrayList<AssetItem>();
-        assetItems = assetItemRepository.findAll();
+        ArrayList<AssetItem> assetItems = assetItemRepository.findAll();
         List<String> names = new ArrayList<>();
 
         for (AssetItem item : assetItems) {
@@ -29,14 +28,8 @@ public class AssetService {
 
         return names; // returning just an array of unique asset names
     }
-    
-    
-    public ArrayList<AssetItem> getAssetsList() {
-        ArrayList<AssetItem> assetItems = new ArrayList<AssetItem>();
-        assetItems = assetItemRepository.findAll();
 
-        return assetItems; // returning just an array of unique asset names
+    public ArrayList<AssetItem> getAssetsList() {
+        return assetItemRepository.findAll(); // returning just an array of unique asset names
     }
-    
-    
 }

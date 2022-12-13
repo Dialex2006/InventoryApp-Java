@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"*"}, maxAge = 4800, allowCredentials = "false")
 public class AssetController {
 
     @Autowired
@@ -42,7 +42,6 @@ public class AssetController {
         String status = "ok";
         String error = "";
         List<String> assetsList = assetService.getAssetsNamesList();
-        System.out.print("List of assets: " + assetsList);
         ArrayList<AssetItem> assetItems = new ArrayList<>();
         try {
             // check how many of each category we have now
@@ -66,14 +65,11 @@ public class AssetController {
         String status = "ok";
         String error = "";
 
-        System.out.println("asset data: " + assetData);
-
         try {
             // read JSON data from file using fileObj and map it using ObjectMapper and TypeReference classes
             Map<String, Object> assetMap = mapper.readValue(assetData, new TypeReference<>() {
             });
             Map<String, String> asset = (Map<String, String>) assetMap.get("asset");
-            System.out.println("asset map: " + asset);
             assetItemService.addAssetItem(new AssetItem(asset.get("assetName"), asset.get("serialNumber"), asset.get("supplier")));
         } catch (Exception e) {
             status = "error";
@@ -136,11 +132,14 @@ public class AssetController {
         return Map.of("status", status, "error", error);
     }
 
-    @DeleteMapping("/assets/delete/id/{id}")
-    public Map<String, Object> deleteAssetById(@PathVariable int id) {
+    @DeleteMapping("/assets/delete/id")
+    public Map<String, Object> deleteAssetById(@RequestBody String idData) {
         String status = "ok";
         String error = "";
         try {
+            Map<String, String> idMap = mapper.readValue(idData, new TypeReference<>() {
+            });
+            int id = Integer.parseInt(idMap.get("id"));
             assetItemService.deleteById(id);
         } catch (Exception e) {
             status = "error";
@@ -149,13 +148,15 @@ public class AssetController {
         return Map.of("status", status, "error", error);
     }
 
-    @DeleteMapping("/assets/delete/number/{serialNumber}")
-    public Map<String, Object> deleteAssetBySerialNumber(@PathVariable String serialNumber) {
+    @DeleteMapping("/assets/delete/number")
+    public Map<String, Object> deleteAssetBySerialNumber(@RequestBody String serialNumberData) {
         String status = "ok";
         String error = "";
         try {
+            Map<String, String> serialNumberMap = mapper.readValue(serialNumberData, new TypeReference<>() {
+            });
+            String serialNumber = serialNumberMap.get("serialNumber");
             AssetItem foundItem = assetItemService.findItemBySerialNumber(serialNumber);
-            System.out.println("my man: " + foundItem + ", and unit id:" + foundItem.getUnitId());
             assetItemService.deleteById(foundItem.getId());
         } catch (Exception e) {
             status = "error";
